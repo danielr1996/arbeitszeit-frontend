@@ -1,0 +1,10 @@
+version: '3.1'
+services:
+  arbeitszeit-frontend:
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    ports:
+      - '80:80'
+    environment:
+      API: https://api.arbeitszeit.app.danielr1996.de

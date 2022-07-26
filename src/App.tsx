@@ -9,7 +9,8 @@ export const App: FunctionComponent = () => {
     const [saldo, setSaldo] = useState<Temporal.Duration>()
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch('http://localhost:3030?user=1')
+            //@ts-ignore
+            const res = await fetch(`${window._env_.API}?user=1`)
             const {daysWorked, shouldHaveWorked, actuallyWorked, saldo} = await res.json()
             setDaysWorked(Temporal.Duration.from(daysWorked))
             setShould(Temporal.Duration.from(shouldHaveWorked))

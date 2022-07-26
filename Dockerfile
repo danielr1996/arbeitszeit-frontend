@@ -1,13 +1,13 @@
-FROM node:18-alpine as builder
-WORKDIR "/app"
+FROM node:18 as builder
+WORKDIR /app
 COPY . .
 RUN npm ci
 RUN npm run build
-RUN npm prune --production
 
-FROM node:18-alpine as production
-WORKDIR "/app"
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-EXPOSE 3030
-CMD [ "sh", "-c", "node dist/main"]
+FROM nginx
+WORKDIR /usr/share/nginx/html
+EXPOSE 80
+COPY ./container/config.sh .
+COPY .env .
+COPY --from=builder /app/build .
+CMD ["/bin/bash","-c","/usr/share/nginx/html/config.sh && nginx -g \"daemon off;\""]
