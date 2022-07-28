@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {FunctionComponent, useEffect, useState} from 'react';
+import {Temporal} from "@js-temporal/polyfill";
+import {Duration} from "./lib/Duration";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App: FunctionComponent = () => {
+    const [daysWorked, setDaysWorked] = useState<Temporal.Duration>()
+    const [should, setShould] = useState<Temporal.Duration>()
+    const [actual, setActual] = useState<Temporal.Duration>()
+    const [saldo, setSaldo] = useState<Temporal.Duration>()
+    useEffect(() => {
+        const fetchData = async () => {
+            //@ts-ignore
+            const res = await fetch(`${window._env_.API}?user=1`)
+            const {daysWorked, shouldHaveWorked, actuallyWorked, saldo} = await res.json()
+            setDaysWorked(Temporal.Duration.from(daysWorked))
+            setShould(Temporal.Duration.from(shouldHaveWorked))
+            setActual(Temporal.Duration.from(actuallyWorked))
+            setSaldo(Temporal.Duration.from(saldo))
+        }
+        fetchData()
+    }, [])
+    return <>
+        <h1>Arbeitszeit</h1>
+        <p><Duration duration={saldo}/> Überstunden</p>
+        <p><Duration duration={actual}/> Stunden gearbeitet</p>
+        <p>von <Duration duration={should}/></p>
+        <p><Duration duration={daysWorked} /> Tage gearbeitet</p>
+    </>
 }
-
-export default App;
