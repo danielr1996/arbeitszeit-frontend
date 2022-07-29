@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html{
+  @apply bg-slate-900 text-zinc-500
+}
+
+html {
+  height: 100vh;
+}
+
+body {
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .h-screen-min {
+    min-height: 100vh;
+  }
+}
