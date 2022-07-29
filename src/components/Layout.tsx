@@ -7,7 +7,8 @@ export const Layout = (props: any)=>{
             <header className="flex-shrink-0 text-black bg-red-500">
                 <nav>
                     <ul className="flex flex-row p-5 text-xl">
-                        <li><LogoutButton /></li>
+                        <li>Arbeitszeit</li>
+                        <li className="text-lg"><LogoutButton/></li>
                     </ul>
                 </nav>
             </header>
