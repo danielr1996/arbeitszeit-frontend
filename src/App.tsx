@@ -1,29 +1,23 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
-import {Temporal} from "@js-temporal/polyfill";
-import {Duration} from "./lib/Duration";
+import {FunctionComponent} from 'react';
+import {Overview} from "./components/Overview";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Layout} from "./components/Layout";
+import {Authenticated} from "./components/auth/Authenticated";
+import {Settings} from "./components/Settings";
 
 export const App: FunctionComponent = () => {
-    const [daysWorked, setDaysWorked] = useState<Temporal.Duration>()
-    const [should, setShould] = useState<Temporal.Duration>()
-    const [actual, setActual] = useState<Temporal.Duration>()
-    const [saldo, setSaldo] = useState<Temporal.Duration>()
-    useEffect(() => {
-        const fetchData = async () => {
-            //@ts-ignore
-            const res = await fetch(`${window._env_.API}?user=1`)
-            const {daysWorked, shouldHaveWorked, actuallyWorked, saldo} = await res.json()
-            setDaysWorked(Temporal.Duration.from(daysWorked))
-            setShould(Temporal.Duration.from(shouldHaveWorked))
-            setActual(Temporal.Duration.from(actuallyWorked))
-            setSaldo(Temporal.Duration.from(saldo))
-        }
-        fetchData()
-    }, [])
     return <>
-        <h1>Arbeitszeit</h1>
-        <p><Duration duration={saldo}/> Überstunden</p>
-        <p><Duration duration={actual}/> Stunden gearbeitet</p>
-        <p>von <Duration duration={should}/></p>
-        <p><Duration duration={daysWorked} /> Tage gearbeitet</p>
+        <Layout>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Authenticated><Page /></Authenticated>}/>
+                </Routes>
+            </BrowserRouter>
+        </Layout>
     </>
 }
+
+const Page = ()=><>
+    <Overview/>
+    <Settings />
+</>
