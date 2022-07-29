@@ -5,10 +5,13 @@ import reportWebVitals from './reportWebVitals';
 import "./index.scss"
 import {AuthProvider} from 'react-oidc-context';
 
+//@ts-ignore
+console.log(window._env_.OAUTH_URL)
 const oidcConfig = {
-    authority: 'https://sso.app.danielr1996.de/realms/arbeitszeit',
+    //@ts-ignore
+    authority: window._env_.OAUTH_URL,
     client_id: 'arbeitszeit-frontend',
-    redirect_uri: 'http://localhost:3000/',
+    redirect_uri: window.location.toString(),
     onSigninCallback: () => {
         window.history.replaceState(
             {},
