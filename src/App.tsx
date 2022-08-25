@@ -1,6 +1,6 @@
 import {FunctionComponent} from 'react';
 import {Overview} from "./components/Overview";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {Layout} from "./components/Layout";
 import {Authenticated} from "./components/auth/Authenticated";
 import {Settings} from "./components/Settings";
@@ -8,16 +8,10 @@ import {Settings} from "./components/Settings";
 export const App: FunctionComponent = () => {
     return <>
         <Layout>
-            <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Authenticated><Page /></Authenticated>}/>
+                    <Route path="/" element={<Authenticated><Overview /></Authenticated>}/>
+                    <Route path="/settings" element={<Authenticated><Settings /></Authenticated>}/>
                 </Routes>
-            </BrowserRouter>
         </Layout>
     </>
 }
-
-const Page = ()=><>
-    <Overview/>
-    <Settings />
-</>
