@@ -4,9 +4,9 @@ import {App} from './App';
 import reportWebVitals from './reportWebVitals';
 import "./index.scss"
 import {AuthProvider} from 'react-oidc-context';
+import {BrowserRouter} from 'react-router-dom';
 
 //@ts-ignore
-console.log(window._env_.OAUTH_URL)
 const oidcConfig = {
     //@ts-ignore
     authority: window._env_.OAUTH_URL,
@@ -31,7 +31,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <AuthProvider {...oidcConfig}>
-            <App/>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
         </AuthProvider>
     </React.StrictMode>
 );

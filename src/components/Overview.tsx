@@ -13,7 +13,7 @@ export const Overview: FunctionComponent = () => {
         const fetchData = async () => {
             const token = auth.user?.access_token;
             //@ts-ignore
-            const res = await fetch(`${window._env_.API}`, {
+            const res = await fetch(`${window._env_.API}/time/summary`, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 }
@@ -26,11 +26,14 @@ export const Overview: FunctionComponent = () => {
         }
         fetchData()
     }, [auth])
-    return <>
-        <h1>Arbeitszeit</h1>
-        <p><Duration duration={saldo}/> Überstunden</p>
-        <p><Duration duration={actual}/> Stunden gearbeitet</p>
-        <p>von <Duration duration={should}/></p>
-        <p><Duration duration={daysWorked}/> Tage gearbeitet</p>
-    </>
+    const durationOptions={
+        displayEmpty: true,
+        withoutPadding: true
+    }
+    return <div className="p-10">
+        <p><Duration withColor {...durationOptions} duration={saldo}/> Überstunden</p>
+        <p><Duration withoutPrefix {...durationOptions} duration={actual}/> Stunden gearbeitet</p>
+        <p>von <Duration withoutPrefix {...durationOptions} duration={should}/></p>
+        <p><Duration onlyDays withoutPrefix {...durationOptions} duration={daysWorked}/> Tage gearbeitet</p>
+    </div>
 }
