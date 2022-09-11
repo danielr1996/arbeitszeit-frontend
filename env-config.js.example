@@ -1,3 +1,5 @@
 window._env_ = {
   API: "",
+  OAUTH_URL: "",
+  OAUTH_CLIENT_ID: "",
 }
