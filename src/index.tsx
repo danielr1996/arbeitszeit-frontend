@@ -2,39 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {App} from './App';
 import reportWebVitals from './reportWebVitals';
-import "./index.scss"
-import {AuthProvider} from 'react-oidc-context';
 import {BrowserRouter} from 'react-router-dom';
+import {AuthWrapper} from "./lib/AuthWrapper";
+import "./index.scss"
+import {Provider} from "react-redux";
+import {store} from "./redux/store";
 
-//@ts-ignore
-const oidcConfig = {
-    //@ts-ignore
-    authority: window._env_.OAUTH_URL,
-    client_id: 'arbeitszeit-frontend',
-    redirect_uri: window.location.toString(),
-    onSigninCallback: () => {
-        window.history.replaceState(
-            {},
-            document.title,
-            window.location.pathname
-        )
-    },
-    onRemoveUser: () => {
-        console.log('user removed')
-        window.location.pathname = "/loggedout"
-    }
-}
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <AuthProvider {...oidcConfig}>
-            <BrowserRouter>
-                <App/>
-            </BrowserRouter>
-        </AuthProvider>
+        <AuthWrapper>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <App/>
+                </BrowserRouter>
+            </Provider>
+        </AuthWrapper>
     </React.StrictMode>
 );
 
