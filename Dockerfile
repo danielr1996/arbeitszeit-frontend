@@ -11,4 +11,4 @@ COPY ./container/config.sh .
 COPY .env .
 COPY --from=builder /app/build .
 RUN chmod +x config.sh
-CMD ["/bin/bash","-c","/usr/share/nginx/html/config.sh && nginx -g \"daemon off;\""]
+CMD ["/bin/bash","-c","/usr/share/nginx/html/config.sh config.js && nginx -g \"daemon off;\""]

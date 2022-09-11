@@ -2,6 +2,7 @@ import React, {FunctionComponent, useEffect, useState} from 'react';
 import {Temporal} from "@js-temporal/polyfill";
 import {Duration} from "lib/Duration";
 import {useAuth} from "react-oidc-context";
+import {getConfigValue} from "../lib/config";
 
 export const Overview: FunctionComponent = () => {
     const auth = useAuth()
@@ -12,8 +13,7 @@ export const Overview: FunctionComponent = () => {
     useEffect(() => {
         const fetchData = async () => {
             const token = auth.user?.access_token;
-            //@ts-ignore
-            const res = await fetch(`${window._env_.API}/time/summary`, {
+            const res = await fetch(`${getConfigValue("API")}/time/summary`, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 }

@@ -7,4 +7,7 @@ services:
     ports:
       - '80:80'
     environment:
-      API: https://api.arbeitszeit.app.danielr1996.de
+      APP_API: https://arbeitszeitapi.app.danielr1996.de
+      APP_OAUTH_URL: https://sso.app.danielr1996.de/realms/arbeitszeit
+      APP_OAUTH_CLIENT_ID: arbeitszeit-frontend
+

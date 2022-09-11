@@ -1,5 +1,6 @@
 import {BaseQueryFn, createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {getToken} from "lib/AuthWrapper";
+import {getConfigValue} from "../lib/config";
 
 export type Service = {
     id: number,
@@ -10,8 +11,7 @@ export type ServiceType = 'CLOCKIFY_SERVICE' | 'TESTDATA_SERVICE'
 
 const dynamicBaseQuery: BaseQueryFn = async (args, WebApi, extraOptions) => {
     const rawBaseQuery = fetchBaseQuery({
-        // @ts-ignore
-        baseUrl: window._env_.API,
+        baseUrl: getConfigValue("API"),
         prepareHeaders: (headers) => {
             const token = getToken()
             if (token) {
