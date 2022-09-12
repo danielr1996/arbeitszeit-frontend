@@ -40,7 +40,7 @@ export const Duration = ({duration, withoutPadding, withoutPrefix, withColor, wi
             }
             return ''
         }
-        duration = duration.round({largestUnit: 'auto'})
+        duration = duration.round({largestUnit: 'hours'})
         const prefix = withoutPrefix ? '' : match([
             [duration.sign === 1, '+'],
             [duration.sign === 0, '±'],

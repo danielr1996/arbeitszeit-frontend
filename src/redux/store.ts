@@ -7,7 +7,8 @@ export const store = configureStore({
         [backend.reducerPath]: backend.reducer
     },
     middleware: (getDefaultMiddleware)=>{
-        return getDefaultMiddleware().concat(backend.middleware);
+        return getDefaultMiddleware({
+            serializableCheck: false}).concat(backend.middleware);
     }
 })
 
