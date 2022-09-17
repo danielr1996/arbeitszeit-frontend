@@ -6,6 +6,7 @@ import {useGetSummaryQuery} from "./redux/api";
 
 export const Daily: FunctionComponent = () => {
     const summary = useGetSummaryQuery().data
+    const saldo = summary?.saldo
     const begin = summary?.begin
     const end = summary?.end
     const percentage = summary?.percentage
@@ -31,7 +32,7 @@ export const Daily: FunctionComponent = () => {
                 </div>}
             />
             <span className="text-5xl text-center block"><Duration displayEmpty withColor withSeconds
-                                                                   duration={overtime}/></span>
+                                                                   duration={saldo}/></span>
         </div>
     </>
 }
