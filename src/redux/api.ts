@@ -86,6 +86,10 @@ export const backend = createApi({
                     // remainingWithOvertime: summary.remainingWithOvertime ? Temporal.Duration.from(summary.remainingWithOvertime) : undefined,
                 }
             }
+        }),
+        sync: builder.mutation<void,void>({
+            invalidatesTags: ['summary'],
+            query: ()=>'users/me/sync'
         })
     }),
 })
@@ -96,4 +100,5 @@ export const {
     useDeleteServiceMutation,
     useGetUserQuery,
     useUpdateUserMutation,
+    useSyncMutation
 } = backend

@@ -1,6 +1,7 @@
 import {Breakpoint} from "./Breakpoint";
 import {LogoutButton} from "./auth/LogoutButton";
 import {Link} from "react-router-dom";
+import {SyncButton} from "./SyncButton";
 
 const navItems = [
     {id: 'overview', component: <Link to="/">Overview</Link>},
@@ -14,6 +15,7 @@ export const Layout = (props: any)=>{
                 <nav>
                     <ul className="flex flex-row p-5 text-xl">
                         {navItems.map(({id, component})=><li className="mr-2" key={id}>{component}</li>)}
+                        <SyncButton />
                     </ul>
                 </nav>
             </header>
